@@ -239,7 +239,7 @@ section#section__contactUs .contactUs__form form input {
     border-radius: 5px;
     text-align: center;
     padding: 5px 10px;
-    background-color: #ddd;
+    background-color: #fff;
 }
 section#section__contactUs .contactUs__form form label{
     font: normal bold 0.8em 'Poppins';
@@ -255,7 +255,7 @@ section#section__contactUs .contactUs__form form textarea {
     border-radius: 10px;
     padding: 10px;
     font: normal normal 0.8em 'Poppins';
-    background-color: #ddd;
+    background-color: #fff;
 }
 section#section__contactUs .contactUs__form form button{
     display: flex;
