@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,200;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  /*Variables Css*/
+  --purple: #5d17eb;
+}
+body {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #e5e5e5;
+}
+.chat__container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+.container__header {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}
+.container__header div {
+  height: 100%;
+  text-align: center;
+}
+div#image__div{
+  width: 5%;
+  font-size: 1.2em;
+}
+div#menu__div{
+  width: 70%;
+  margin: 0 auto;
+}
+div#notifications__div{
+  width: 5%;
+  font-size: 1.2em;
+}
+.menu__nav {
+  height: 100%;
+  width: 100%;
+}
+.nav__list {
+  display: flex;
+  list-style: none;
+  min-width: 100%;
+  justify-content: space-between;
+}
+.nav__list .nav__item button {
+  background-color: transparent;
+  border: none;
+  font: normal normal 0.9em 'Fredoka';
+}
+.nav__list .nav__item button:hover {
+  color: var(--purple);
+}
+.container__main {
+  width: 100%;
+  height: calc(100vh - 40px);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:"c m m m"
+                      "c m m m";
+}
+.contacts {
+  display: flex;
+  flex-direction: column;
+  grid-area: c;
+  margin: 10px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  position: relative;
+}
+.contacts::-webkit-scrollbar {
+  display: none;
+}
+.contacts input#search__input {
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px 10px;
+  font: normal bold 0.8em 'Poppins';
+  color: rgba(99, 99, 99, 0.8)
+}
+.contacts__list {
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+}
+.contacts__list li a {
+  text-decoration: none;
+  color: #000;
+}
+.contacts__list li a .contact , .contacts__list li .group{
+  display: flex;
+  width: 100%;
+  height: 60px;
+  padding: 2px 0;
+  align-items: center;
+  position: relative;
+  border-bottom: 1px solid #e5e5e571;
+}
+.contacts__list li .imageDiv {
+  display: flex;
+  height: 100%;
+  width: 40px;
+  position: relative;
+  align-items: center;
+}
+.contacts__list li .imageDiv::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #6140a3f3;
+  bottom: 10px;
+  right: 1.5px;
+  border-radius: 50%;
+}
+.contacts__list li .imageDiv img {
+  height: 40px;
+  width: 100%;
+  border-radius: 50%;
+}
+.contacts__list li div div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 0 0 10px;
+}
+.contacts__list li div div .contact__name, .contacts__list li div div .group__name {
+  font: normal bold 0.85em 'Poppins';
+  letter-spacing: 0.005em;
+}
+.contacts__list li div div .contact__lastMessage, .contacts__list li div div .group__lastMessage {
+  font: normal normal 0.6em 'Poppins';
+  letter-spacing: 0.005em;
+}
+.contacts__list li div .lastMessage__hour {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font: normal bold 0.6em 'Poppins';
+  color: rgba(0, 0, 0, 0.5);
+}
+.contacts .addContacts {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 10px;
+  padding: 0 5px;
+}
+.contacts .addContacts .selectToAdd {
+  display: none;
+  flex-direction: column;
+  height: 55px;
+  width: 90px;
+  justify-content: space-evenly;
+  position: absolute;
+  top: -60px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+.contacts .addContacts .selectToAdd button {
+  background-color: transparent;
+  border: none;
+  height: 25px;
+  width: 100%;
+  font: normal bold 0.8em 'Poppins';
+  color: rgba(0, 0, 0, 0.8);
+}
+.contacts .addContacts .selectToAdd button:hover {
+  color: var(--purple);
+}
+.contacts .addContacts .addContacts__button {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.3em;
+  background-color: var(--purple);
+  color: #fff;
+}
+.addContactForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.addContactForm div form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 5px 10px;
+  height: 180px;
+  width: 180px;
+  position: relative;
+}
+.addContactForm div form input {
+  width: 100%;
+  height: 35px;
+  margin: 0 0 5px 0;
+  text-align: center;
+  font: normal normal 1em 'Fredoka';
+  border: none;
+  background-color: #e5e5e5;
+}
+.addContactForm div form .sendForm {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--purple);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font: normal normal 1em 'Fredoka';
+}
+#addContactForm {
+  display: none;
+}
+#addGroupForm {
+  display: none;
+}
+.main__message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  position: relative;
+  grid-area: m;
+  margin: 10px 10px 10px 0;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.);
+}
+.main__message .message__buttons {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  position: relative;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.main__message .message__buttons h2 {
+  font: normal bold 1.2em 'Fredoka';
+}
+.main__message .message__buttons button {
+  height: 100%;
+  width: 80px;
+  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  color: #000;
+  font: normal bold 0.8em 'Fredoka';
+  letter-spacing: 0.0005em;
+  background-color: #fff;
+}
+.main__message .chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 30px);
+  padding: 15px 5px;
+  position: relative;
+  overflow-y: scroll;
+}
+.main__message .chat .chat__message {
+  display: flex;
+  min-height: 40px;
+  min-width: 20px;
+  max-width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+.chat__message .message__text {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-width: 40px;
+  background-color: #e5e5e5;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 0 10px;
+  margin-left: 10px;
+}
+.chat__message .message__text .text {
+  font: normal normal 0.8em 'Poppins';
+  margin: 0 0 5px 0;
+  color: rgba(0, 0, 0, 0.85);
+}
+.chat__message .message__text .text__messageHour {
+  font: normal bolder 0.5em 'Poppins';
+  color: #555555b4;
+  position: absolute;
+  right: 7px;
+  bottom: 0;
+  letter-spacing: 00.0005em;
+}
+.chat__sendMessage {
+  margin-bottom: 10px;
+  z-index: 3;
+}
+.chat__sendMessage form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.chat__sendMessage form .sendMessage__input {
+  height: 100%;
+  width: calc(100% - 40px);
+  margin-right: 10px;
+  text-align: left;
+  background-color: #e5e5e5;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font: normal normal 0.8em 'Poppins';
+  color: rgba(0, 0, 0, 0.85);
+  letter-spacing: 00.0005em;
+}
+.chat__sendMessage form button {
+  display: flex;
+  height: 100%;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  font-size: 1em;
+  color: var(--purple);
+  padding: 5px;
+  background-color: #e5e5e5;
+}
+#storySetLink {
+  text-decoration: none;
+  color: #bebebe;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  font: normal normal 0.6em 'Poppins';
+}
+#storySetLink:hover {
+  text-decoration: underline;
+  color: var(--purple);
+}
+#chatImg {
+  height: 80%;
+  width: 80%;
+  animation: floating 2s infinite;
+}
+@keyframes floating {
+  0% {
+    transform: translateY(1px);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(1px);
+  }
+}

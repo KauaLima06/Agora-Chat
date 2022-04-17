@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <link rel="stylesheet" href="./style/chat.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="./js/chat.js" defer></script>
+</head>
+<body>
+    <div class="chat-container">
+        <header class="container__header">
+            <div id="image__div">
+                <!--Nessa div ficará uma img que será a logo-->
+                <ion-icon name="chatbubbles-outline"></ion-icon>            
+            </div>
+            <div id="menu__div">
+                <nav class="menu__nav">
+                    <ul class="nav__list">
+                        <li class="nav__item"><button>Settings</button></li>
+                        <li class="nav__item"><button>FAQ</button></li>
+                        <li class="nav__item"><button>Terms of Use</button></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id="notifications__div">
+                <ion-icon name="notifications-outline"></ion-icon>            
+            </div>
+        </header>
+        <div class="addContactForm">
+            <div> 
+                <form id="addContactForm" action="/" method="post">
+                    <input type="text" name="nameCont" id="nameContact" placeholder="Insert Contact Name">
+                    <input type="text" name="idCont" id="idContact" placeholder="Insert Contact Id">
+                    <button type="submit" class="sendForm">Add</button>
+                </form>
+            </div>
+            <div>
+                <form id="addGroupForm" action="/" method="post">
+                    <input type="text" name="nameGroup" id="nameGroup" placeholder="Insert Group Name">
+                    <input type="text" name="idGroup" id="idGroup" placeholder="Insert Group Id">
+                    <button type="submit" class="sendForm">Add</button>
+                </form>
+            </div>
+        </div>
+        <main class="container__main">
+            <div class="contacts">
+                <input type="search" name="search__input" id="search__input" placeholder="Search">
+                <ul class="contacts__list">
+                    <!-- <li>
+                        <a href="/chat.html?to=js&user=ola">
+                            <div class="contact">
+                                <div class="imageDiv">
+                                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Photo">
+                                </div>
+                                <div class="messageDiv">
+                                    <p class="contact__name">Bill</p>
+                                    <p class="contact__lastMessage">Hi!</p>
+                                </div>
+                                <p class="lastMessage__hour">09:00</p>
+                            </div>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="/chat.html?to=css&user=ola">
+                            <div class="contact">
+                                <div class="imageDiv">
+                                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Photo">
+                                </div>
+                                <div class="messageDiv">
+                                    <p class="contact__name">Bill</p>
+                                    <p class="contact__lastMessage">Hi!</p>
+                                </div>
+                                <p class="lastMessage__hour">09:00</p>
+                            </div>
+                        </a>
+                    </li> 
+                </ul>
+                <div class="addContacts">
+                    <div class="selectToAdd">
+                        <button id="selectToAdd__contact" value="Contact">Contact</button>
+                        <button id="selectToAdd__group" value="Group">Group</button>
+                    </div>
+                    <button class="addContacts__button">
+                        <ion-icon name="add" id="openFormIcon"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="main__message">
+                <img src="./images/Texting-rafiki.svg" alt="image" id="chatImg">
+                <a href="https://storyset.com/social-media" id="storySetLink">Social media illustrations by Storyset</a>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
