@@ -8,7 +8,7 @@
     <title>Agora Web Chat</title>
     <link rel="stylesheet" href="./style/index.css">
     <link rel="shortcut icon" href="" type="image/x-icon">
-    <script src="../js/script.js" defer></script>
+    <script src="./js/script.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -53,7 +53,7 @@
                 <h2 id="tools__title">Tools</h2>
             </section>
             <section id="section__contactUs">
-                <div class="contactUs__text">
+                <div class="contactUs__text" data-anime="right">
                     <h2 id="contactUs__title">Contact Us</h2>
                     <p id="contactUs__p">
                         Contact us about any problems, bugs, suggestions or feedback 
@@ -61,7 +61,7 @@
                     </p>
                     <img src="./images/Feedback-pana.svg" alt="Feedback ilustration image">
                 </div>
-                <div class="contactUs__form">
+                <div class="contactUs__form" data-anime="left">
                     <form action="index.html">
                         <label for="contactUs__name">Name</label>
                         <input type="text" name="contactUs__name" id="contactUs__name" placeholder="Insert your name">
@@ -75,6 +75,7 @@
             </section>
             <a href="https://storyset.com/online" id="storySetLink">Online illustrations by Storyset</a>
         </main>
+        <div class="offSetTopDiv"></div>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
