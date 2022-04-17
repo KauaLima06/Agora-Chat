@@ -4,9 +4,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Agora Web Chat</title>
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <script src="./js/script.js" defer></script>
 </head>
 <body>
-    
+    <div class="container">
+        <header class="header">
+            <!-- <a href="#"><img src="" alt="Logo"></a> -->
+            <a href="#" id="logo">
+                <p>Agora</p>
+            </a>
+            <nav class="header__menu">
+                <ul class="headerNav__list">
+                    <li><a href="#section__about">About</a></li>
+                    <li><a href="#section__tools">Tools</a></li>
+                    <li><a href="#section__contactUs">Contact Us</a></li>
+                    <li class="signIn"><a href="#">Sign Up</a></li>
+                    <li class="loginLink"><a href="#">Login</a></li>
+                </ul>
+            </nav>
+            <button id="menuSideBar__button"><ion-icon name="menu" id="menuIcon"></ion-icon></button>
+        </header>
+        <div id="menuSideBar" class="menuSideBarClose">
+            <nav class="menuSideBar__nav">
+                <ul class="menuSideBarNav__list">
+                    <li><a href="#section__about">About</a></li>
+                    <li><a href="#section__tools">Tools</a></li>   
+                    <li><a href="#section__contactUs">Contact Us</a></li>
+                    <li class="signIn"><a href="#">Sign Up</a></li>
+                    <li class="loginLink"><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+        <main class="main">
+            <section id="section__about">
+                <div id="about__text">
+                    <h2 id="about__title">About Agora Chat</h2>
+                    <p id="about__p">Agora Chat is a realtime chat made in Html, Css, JavaScript, NodeJs and some of its dependencies.</p>
+                </div>
+                <div id="about__image">
+                    <img src="./images/Texting-bro.svg" alt="Chat ilustration image">
+                </div>
+            </section>
+            <section id="section__tools">
+                <h2 id="tools__title">Tools</h2>
+            </section>
+            <section id="section__contactUs">
+                <div class="contactUs__text">
+                    <h2 id="contactUs__title">Contact Us</h2>
+                    <p id="contactUs__p">
+                        Contact us about any problems, bugs, suggestions or feedback 
+                        you have that will help make Agora Chat better and better for you.
+                    </p>
+                    <img src="./images/Feedback-pana.svg" alt="Feedback ilustration image">
+                </div>
+                <div class="contactUs__form">
+                    <form action="/public/index.html">
+                        <label for="contactUs__name">Name</label>
+                        <input type="text" name="contactUs__name" id="contactUs__name" placeholder="Insert your name">
+                        <label for="contactUs__email">Email</label>
+                        <input type="email" name="contactUs__email" id="contactUs__email" placeholder="Insert your email">
+                        <label for="contactUs__text">Problems, bugs, suggestions or feedback</label>
+                        <textarea name="contactUs__text" id="contactUs__text"></textarea>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </section>
+            <a href="https://storyset.com/online" id="storySetLink">Online illustrations by Storyset</a>
+        </main>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
