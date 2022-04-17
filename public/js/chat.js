@@ -3,6 +3,24 @@
 
 import { createContactEl } from "./createContactEl.js";
 import { createGroupEl } from "./createGroupEl.js";
+//Get url data
+let url = new URLSearchParams(window.location.search);
+let to = url.get('to');
+
+if(to === null){
+    document.querySelector('#chatImg').style.display = '';
+    document.querySelector('#storySetLink').style.display = '';
+    document.querySelector('.message__buttons').style.display = 'none';
+    document.querySelector('.chat').style.display = 'none';
+    document.querySelector('.chat__sendMessage').style.display = 'none';
+}else{
+    document.querySelector('#chatImg').style.display = 'none';
+    document.querySelector('#storySetLink').style.display = 'none';
+    document.querySelector('.message__buttons').style.display = 'flex';
+    document.querySelector('.chat').style.display = 'flex';
+    document.querySelector('.chat__sendMessage').style.display = 'flex';
+}
+//Get url data
 // Open and Close form
 const addContactsBttn = document.querySelector('.addContacts__button');
 addContactsBttn.addEventListener('click', (e)=>{
@@ -78,6 +96,37 @@ groupForm.addEventListener('submit', e => {
     contactsList.append(elem);
 });
 //Send forms 
+
+//Send Message
+//Send message
+const sendMessageForm = document.querySelector('#sendMessage__form');
+sendMessageForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    let message = document.querySelector('.sendMessage__input').value;
+    let data = {
+        message: message,
+        hour: getHour(),
+        room,
+    };
+    socket.emit('sendMessage', data);
+    document.querySelector('.sendMessage__input').value = '';
+});
+
+//get hour
+function getHour(){
+    let now = new Date();
+    let hour = now.getHours();
+    let min = now.getMinutes();
+
+    if(min < 10){
+        min = `0${min}`;
+    };
+
+    return `${hour}:${min}`;
+};
+//get hour
+
 function renderMessage(data){
 
     let { message: txt , hour } = data;
@@ -100,6 +149,8 @@ function renderMessage(data){
     chat.append(messageEl);
 };
 //Send message
+//Send Message
+
 //Socket events
 socket.on('recivedMessage', data => {
     renderMessage(data);

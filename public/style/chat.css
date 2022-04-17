@@ -268,35 +268,54 @@ div#notifications__div{
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.);
 }
 .main__message .message__buttons {
-  display: flex;
+  display: none;
   width: 100%;
-  height: 30px;
+  height: 40px;
   position: relative;
   justify-content: space-between;
   padding: 5px 0;
 }
 .main__message .message__buttons h2 {
   font: normal bold 1.2em 'Fredoka';
+  color: var(--purple);
+}
+.main__message .message__buttons div{
+  display: flex;
+  width: 50%;
+  height: 100%;
+  max-width: 300px;
+  justify-content: space-evenly;
 }
 .main__message .message__buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 80px;
   padding: 5px;
   border-radius: 10px;
   border: none;
-  color: #000;
-  font: normal bold 0.8em 'Fredoka';
+  color: #fff;
+  font: normal normal 0.8em 'Fredoka';
   letter-spacing: 0.0005em;
-  background-color: #fff;
+  background-color: var(--purple);
+}
+.main__message .message__buttons .closeChat {
+  width: 30px;
+  height: 30px;
+  color: var(--purple);
+  background-color: transparent;
+  font-size: 1.2em;
 }
 .main__message .chat {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 100%;
   height: calc(100% - 30px);
   padding: 15px 5px;
   position: relative;
   overflow-y: scroll;
+  background-color: #fff;
 }
 .main__message .chat .chat__message {
   display: flex;
@@ -334,8 +353,12 @@ div#notifications__div{
   letter-spacing: 00.0005em;
 }
 .chat__sendMessage {
+  display: none;
   margin-bottom: 10px;
   z-index: 3;
+  background-color: #fff;
+  width: 100%;
+  padding: 10px 10px 5px 10px;
 }
 .chat__sendMessage form {
   display: flex;
