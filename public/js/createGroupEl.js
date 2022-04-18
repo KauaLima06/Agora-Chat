@@ -4,7 +4,7 @@ const createGroupEl = (data) => {
 
     const li = document.createElement('li');
     const groupLink = document.createElement('a');
-    groupLink.href = `/chat.html?to=${id}&user=${name}`;
+    groupLink.href = `/chat.html?to=${id}`;
     const group = document.createElement('div');
     group.classList.add('group');
     const imageDiv = document.createElement('div');

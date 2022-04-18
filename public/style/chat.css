@@ -302,6 +302,7 @@ div#notifications__div{
   font: normal normal 0.8em 'Fredoka';
   letter-spacing: 0.0005em;
   background-color: var(--purple);
+  margin: 0 2px;
 }
 .main__message .message__buttons .closeChat {
   width: 30px;
