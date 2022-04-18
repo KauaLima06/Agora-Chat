@@ -1,19 +1,20 @@
 //Conect client in websocket
-// const socket = io();
+const socket = io();
 
 import { createContactEl } from "./createContactEl.js";
 import { createGroupEl } from "./createGroupEl.js";
 //Get url data
 let url = new URLSearchParams(window.location.search);
-let to = url.get('to');
+let room = url.get('to');
 
-if(to === null){
+if(room === null){
     document.querySelector('#chatImg').style.display = '';
     document.querySelector('#storySetLink').style.display = '';
     document.querySelector('.message__buttons').style.display = 'none';
     document.querySelector('.chat').style.display = 'none';
     document.querySelector('.chat__sendMessage').style.display = 'none';
 }else{
+    socket.emit('selectRoom', room);
     document.querySelector('#chatImg').style.display = 'none';
     document.querySelector('#storySetLink').style.display = 'none';
     document.querySelector('.message__buttons').style.display = 'flex';
@@ -98,7 +99,6 @@ groupForm.addEventListener('submit', e => {
 //Send forms 
 
 //Send Message
-//Send message
 const sendMessageForm = document.querySelector('#sendMessage__form');
 sendMessageForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -142,7 +142,7 @@ function renderMessage(data){
     messageHour.innerText = hour;
 
     messageText.append(text);
-    messageText.append(messageHour);
+    messageEl.append(messageHour);
     messageEl.append(messageText);
 
     let chat = document.querySelector('.chat');
@@ -154,5 +154,15 @@ function renderMessage(data){
 //Socket events
 socket.on('recivedMessage', data => {
     renderMessage(data);
+    let messagesEl = document.querySelectorAll('.chat__message');
+    let lastElTop = messagesEl[messagesEl.length - 1].offsetTop;
+    if(lastElTop >= 435){
+        chatScrollDown();
+    }
 });
 //Socket events
+//automatic scroll
+function chatScrollDown(){
+    document.querySelector('.chat').scrollTop += 65;
+};
+//automatic scroll
