@@ -273,7 +273,7 @@ section#section__contactUs img {
     display: flex;
     height: 60%;
     width: 60%; 
-    margin: 0 auto -60px auto;
+    margin: 15px auto;
 }
 /* Story Set Link */
 #storySetLink {
