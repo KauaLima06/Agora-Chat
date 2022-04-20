@@ -167,7 +167,7 @@ div#notifications__div{
 .nav__list .nav__item button {
   background-color: transparent;
   border: none;
-  font: normal normal 0.9em 'Fredoka';
+  font: normal normal 1em 'Fredoka';
 }
 .nav__list .nav__item button:hover {
   color: var(--purple);

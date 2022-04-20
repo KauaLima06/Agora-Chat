@@ -10,7 +10,7 @@ const createContactEl = (data) => {
     const imageDiv = document.createElement('div');
     imageDiv.classList.add('imageDiv');
     const img = document.createElement('img');
-    img.src = "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+    img.src = "../images/profile-default-image.jpg";
     // img.src = image do bd
     const divMessage = document.createElement('div');
     divMessage.classList.add('messageDiv');

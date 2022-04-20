@@ -55,10 +55,10 @@ h1#title{
     border: 1px solid rgba(0, 0, 0, 0.25);
     border-radius: 7px;
     background-color: #fff;
-    margin: 5px 0 20px 0;
+    margin: 5px 0;
     padding: 5px 10px;
-    text-align: center;
-    font: normal normal 1em 'Poppins';
+    text-align: left;
+    font: normal normal 0.9em 'Poppins';
 }
 .loginForm form button{
     width: 100%;
@@ -68,6 +68,15 @@ h1#title{
     color: #fff;
     font: normal normal 1em 'Poppins';
     background-color: var(--purple);
+    margin-top: 10px;
+}
+.error , .passTooShort{
+    display: none;
+    font: normal bold 0.7em 'Poppins';
+    color: crimson;
+}
+.error.show , .passTooShort.show{
+    display: inline;
 }
 .redirect__signUp {
     display: flex;

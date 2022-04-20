@@ -30,7 +30,8 @@ body {
 }
 .signUp__form {
     width: 250px;
-    height: 350px;
+    height: 370px;
+    margin-top: -50px;
 }
 .signUp__form h1#title {
     font: normal bold 1.5em 'Poppins';
@@ -66,6 +67,14 @@ body {
     background-color: var(--purple);
     font: normal normal 0.9em 'Poppins';
     color: var(--white);
+}
+.error , .passTooShort{
+    display: none;
+    font: normal bold 0.7em 'Poppins';
+    color: crimson;
+}
+.error.show , .passTooShort.show{
+    display: inline;
 }
 .redirect__login {
     display: flex;

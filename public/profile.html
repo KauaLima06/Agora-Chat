@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="./style/profile.css">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <script src="./js/profile.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <button id="profile__close"><ion-icon name="close"></ion-icon></button>
+            <button id="profile__menu"><ion-icon name="ellipsis-vertical-outline"></ion-icon></button>
+        </header>
+        <main id="main">
+            <div class="profile__image">
+                <img src="./images/profile-default-image.jpg" alt="Profile Image" id="image">
+                <h2 id="profile__name">Negão</h2>
+            </div>
+            <div class="profile__information">
+                <div>
+                    <p class="labels">Email:</p>
+                    <p id="profile__email">lima.kaua200@gmail.com</p>
+                </div>
+                <div>
+                    <p class="labels">User Id:</p>
+                    <p class="user__id">BRXBOM5</p>
+                </div>
+                <div>
+                    <p class="labels">Link:</p>
+                    <p class="invite__link"><a href="#" id="link">http://localhost:8080/chat?to=BRXBOM5</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
