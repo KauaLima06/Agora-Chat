@@ -1,7 +1,7 @@
 const { io } = require('./http');
 
 io.on('connection', socket => {
-    console.log(socket.id)
+    console.log(`New user connect: ${socket.id}`)
 
     socket.on('selectRoom', room => {
        socket.join(room);

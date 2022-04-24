@@ -6,8 +6,8 @@ require('body-parser');
 
 //MongoDB
 const mongoose = require('mongoose');
-require('../models/User');
-const User = mongoose.model('users');
+// require('../models/User');
+// const User = mongoose.model('users');
 //MongoDB
 
 //Routers

@@ -6,7 +6,12 @@ import { createGroupEl } from "./createGroupEl.js";
 //Get url data
 let url = new URLSearchParams(window.location.search);
 let room = url.get('to');
+let name = url.get('name');
+if(name != null || name != undefined){
+    document.querySelector('#nameContactH2').innerText = name;
+}
 
+const contactsList = document.querySelector('.contacts__list');
 if(room === null){
     document.querySelector('#chatImg').style.display = '';
     document.querySelector('#storySetLink').style.display = '';
@@ -23,6 +28,7 @@ if(room === null){
 }
 //Get url data
 // Open and Close form
+const addContactForm = document.querySelector('.addContactForm');
 const addContactsBttn = document.querySelector('.addContacts__button');
 addContactsBttn.addEventListener('click', (e)=>{
     const openIcon = document.querySelector('#openFormIcon');
@@ -33,27 +39,30 @@ addContactsBttn.addEventListener('click', (e)=>{
         selectToAdd.style.display = 'flex';
         selectToAdd.addEventListener('click', e => {
             let formSelected = e.target.value;
-            let formOpenId = `add${formSelected}Form`;
-            if(formSelected == 'Contact'){
-                document.getElementById('addGroupForm').style.display = 'none';
+            let formOpenId = `#${formSelected}Div`;
+            if(formSelected == 'contact'){
+                document.querySelector('#groupDiv').style.display = 'none';
             }else{
-                document.getElementById('addContactForm').style.display = 'none';
+                document.querySelector('#contactDiv').style.display = 'none';
             }
-            let formOpen = document.getElementById(formOpenId);
+            let formOpen = document.querySelector(formOpenId);
+            addContactForm.style.display = 'flex';
             formOpen.style.display = 'flex';
         });
         window.addEventListener('keydown', e => {
             if(e.key == 'Escape'){
                 openIcon.name = 'add';
-                document.getElementById('addGroupForm').style.display = 'none';
-                document.getElementById('addContactForm').style.display = 'none';
+                addContactForm.style.display = 'none';
+                document.querySelector('#groupDiv').style.display = 'none';
+                document.querySelector('#contactDiv').style.display = 'none';
                 document.querySelector('.selectToAdd').style.display = 'none';
             }
         });
     } else if(nameIcon == 'close') {
         openIcon.name = 'add';
-        document.getElementById('addGroupForm').style.display = 'none';
-        document.getElementById('addContactForm').style.display = 'none';
+        addContactForm.style.display = 'none';
+        document.querySelector('#contactDiv').style.display = 'none';
+        document.querySelector('#groupDiv').style.display = 'none';
         document.querySelector('.selectToAdd').style.display = 'none';
     }else {
         return;
@@ -61,7 +70,6 @@ addContactsBttn.addEventListener('click', (e)=>{
 })
 //Open and Close form
 //Send forms 
-const contactsList = document.querySelector('.contacts__list');
 const contactForm = document.querySelector('#addContactForm');
 let elem = null;
 contactForm.addEventListener('submit', e => {
@@ -72,8 +80,9 @@ contactForm.addEventListener('submit', e => {
 
     document.querySelector(`#nameContact`).value = '';
     document.querySelector(`#idContact`).value = '';
-    document.getElementById('addGroupForm').style.display = 'none';
-    document.getElementById('addContactForm').style.display = 'none';
+    addContactForm.style.display = 'none';
+    document.getElementById('contactDiv').style.display = 'none';
+    document.getElementById('groupDiv').style.display = 'none';
 
     elem = createContactEl({name, id});
 
@@ -89,8 +98,9 @@ groupForm.addEventListener('submit', e => {
     
     document.querySelector(`#nameGroup`).value = '';
     document.querySelector(`#idGroup`).value = '';
-    document.getElementById('addGroupForm').style.display = 'none';
-    document.getElementById('addContactForm').style.display = 'none';
+    addContactForm.style.display = 'none';
+    document.getElementById('groupDiv').style.display = 'none';
+    document.getElementById('contactDiv').style.display = 'none';
     
     elem = createGroupEl({name, id});
     

@@ -6,9 +6,9 @@ require('body-parser');
 
 //MongoDB
 const mongoose = require('mongoose');
-const { send } = require('process');
-require('../models/User');
-const User = mongoose.model('users');
+// const { send } = require('process');
+// require('../models/User');
+// const User = mongoose.model('users');
 //MongoDB
 
 //Routers

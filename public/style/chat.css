@@ -267,19 +267,18 @@ div#notifications__div{
   justify-content: space-evenly;
   position: absolute;
   top: -60px;
-  border: 2px solid #ddd;
   border-radius: 5px;
+  background-color: var(--purple);
 }
 .contacts .addContacts .selectToAdd button {
   background-color: transparent;
   border: none;
-  height: 25px;
+  height: 50%;
+  border: 2px solid #fff;
   width: 100%;
-  font: normal bold 0.8em 'Poppins';
-  color: rgba(0, 0, 0, 0.8);
-}
-.contacts .addContacts .selectToAdd button:hover {
-  color: var(--purple);
+  font: normal normal 0.9em 'Poppins';
+  color: #fff;
+  letter-spacing: 0.05em;
 }
 .contacts .addContacts .addContacts__button {
   display: flex;
@@ -294,48 +293,69 @@ div#notifications__div{
   color: #fff;
 }
 .addContactForm {
+  display: none;
+  flex-direction: column;
+  width: 40%;
+  min-width: 250px;
+  max-width: 300px;
+  height: 300px;
+  align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  background-color: #fff;
+  background-color: var(--purple);
   border-radius: 10px;
+  padding: 5px 10px 10px 10px;
 }
-.addContactForm div form {
+.addContactForm div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+.addContactForm h2{
+  font: normal bold 1.5em 'Poppins';
+  text-align: center;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.addContactForm div form{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(221, 221, 221);
+  padding: 10px;
+  border-radius: 10px;
+}
+.addContactForm div form input{
+  height: 45px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+  background-color: #fff;
   padding: 5px 10px;
-  height: 180px;
-  width: 180px;
-  position: relative;
+  font: normal normal 1em 'Poppins';
+  letter-spacing: 00.0005em;
 }
-.addContactForm div form input {
-  width: 100%;
-  height: 35px;
-  margin: 0 0 5px 0;
-  text-align: center;
-  font: normal normal 1em 'Fredoka';
-  border: none;
-  background-color: #e5e5e5;
-}
-.addContactForm div form .sendForm {
-  display: flex;
-  width: 100%;
-  height: 30px;
-  justify-content: center;
-  align-items: center;
+.addContactForm div form button{
+  height: 40px;
+  width: 95%;
   background-color: var(--purple);
   color: #fff;
+  font: normal normal 1em 'Poppins';
   border: none;
-  border-radius: 5px;
-  font: normal normal 1em 'Fredoka';
+  border-radius: 7px;
+  margin: 0 5px;
 }
-#addContactForm {
+#contactDiv{
   display: none;
 }
-#addGroupForm {
+#groupDiv{
   display: none;
 }
 .main__message .message__buttons {
@@ -398,9 +418,12 @@ div#notifications__div{
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin: 0 10px 20px 10px;
   z-index: 1;
   position: relative;
+}
+.main__message .chat .chat__message.sendToMe {
+  justify-content: flex-end;
 }
 .chat__message .message__text {
   display: flex;
@@ -412,8 +435,7 @@ div#notifications__div{
   background-color: #e5e5e5;
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 5px;
-  margin-left: 10px;
+  padding: 0 5px;
 }
 .chat__message .message__text .text {
   font: normal normal 0.8em 'Poppins';
