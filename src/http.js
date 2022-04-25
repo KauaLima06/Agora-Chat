@@ -7,8 +7,6 @@ const bodyParse = require('body-parser');
 const momgoose = require('mongoose');
 //Routers
 const chatRouters = require('../routers/chatRouters.js');
-const userRouters = require('../routers/userRouters.js');
-const adminRouters = require('../routers/adminRouters.js');
 //Routers
 //Modules
 
