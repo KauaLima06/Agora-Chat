@@ -73,38 +73,59 @@ addContactsBttn.addEventListener('click', (e)=>{
 const contactForm = document.querySelector('#addContactForm');
 let elem = null;
 contactForm.addEventListener('submit', e => {
-    e.preventDefault();
+    let name = document.querySelector(`#nameContact`);
+    let id = document.querySelector(`#idContact`);
+    
+    if(name.value != '' && id.value != ''){
+        name.value = '';
+        id.value = '';
+        addContactForm.style.display = 'none';
+        document.getElementById('contactDiv').style.display = 'none';
+        document.getElementById('groupDiv').style.display = 'none';
+    
+        elem = createContactEl({name, id});
+    
+        contactsList.append(elem);
+    }else{
+        e.preventDefault();
+        
+        document.querySelector(`#nameContact`).placeholder = 'Name is required';
+        document.querySelector(`#idContact`).placeholder = 'Id is required';
 
-    let name = document.querySelector(`#nameContact`).value;
-    let id = document.querySelector(`#idContact`).value;
-
-    document.querySelector(`#nameContact`).value = '';
-    document.querySelector(`#idContact`).value = '';
-    addContactForm.style.display = 'none';
-    document.getElementById('contactDiv').style.display = 'none';
-    document.getElementById('groupDiv').style.display = 'none';
-
-    elem = createContactEl({name, id});
-
-    contactsList.append(elem);
+        setTimeout(() => {
+            document.querySelector(`#nameContact`).placeholder = 'Insert contact name';
+            document.querySelector(`#idContact`).placeholder = 'Insert contact id';
+        }, 3000);
+    }
 });
 
 const groupForm = document.querySelector('#addGroupForm');
 groupForm.addEventListener('submit', e => {
-    e.preventDefault();
+    let name = document.querySelector('#nameGroup');
+    let id = document.querySelector('#idGroup');
     
-    let name = document.querySelector('#nameGroup').value;
-    let id = document.querySelector('#idGroup').value;
-    
-    document.querySelector(`#nameGroup`).value = '';
-    document.querySelector(`#idGroup`).value = '';
-    addContactForm.style.display = 'none';
-    document.getElementById('groupDiv').style.display = 'none';
-    document.getElementById('contactDiv').style.display = 'none';
-    
-    elem = createGroupEl({name, id});
-    
-    contactsList.append(elem);
+    if(name.value != '' && id.value != ''){
+        
+        document.querySelector(`#nameGroup`).value = '';
+        document.querySelector(`#idGroup`).value = '';
+        addContactForm.style.display = 'none';
+        document.getElementById('groupDiv').style.display = 'none';
+        document.getElementById('contactDiv').style.display = 'none';
+        
+        elem = createGroupEl({name, id});
+        
+        contactsList.append(elem);
+    }else{
+        e.preventDefault();
+
+        document.querySelector(`#nameGroup`).placeholder = 'Name is required';
+        document.querySelector(`#idGroup`).placeholder = 'Id is required';
+        
+        setTimeout(() => {
+            document.querySelector(`#nameGroup`).placeholder = 'Insert group name';
+            document.querySelector(`#idGroup`).placeholder = 'Insert group id';
+        }, 3000);
+    }
 });
 //Send forms 
 
