@@ -40,8 +40,6 @@ momgoose.connect('mongodb://localhost/agora-chat').then(()=>{
 
 //Routers
 app.use('/', chatRouters);
-app.use('/user', userRouters);
-app.use('/admin', adminRouters);
 //Routers
 
 //Server
