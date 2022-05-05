@@ -1,11 +1,11 @@
-const userOrEmail = document.querySelector('#login__userOrEmail');
+const email = document.querySelector('#login__userOrEmail');
 const password = document.querySelector('#login__pass');
 const loginForm = document.querySelector('#loginForm');
 const errorMsg = document.querySelectorAll('.error');
 const passTooShort = document.querySelector('.passTooShort');
 
 loginForm.addEventListener('submit', e => {
-    let htmlEl = [userOrEmail, password];
+    let htmlEl = [email, password];
 
     for(let pos in htmlEl){
         if(htmlEl[pos].value === ''){
@@ -24,4 +24,5 @@ loginForm.addEventListener('submit', e => {
             passTooShort.classList.remove('show');
         }, 3000);
     }
+
 });

@@ -180,7 +180,6 @@ function renderMessage(data){
     chat.append(messageEl);
 };
 //Send message
-//Send Message
 
 //Socket events
 socket.on('recivedMessage', data => {

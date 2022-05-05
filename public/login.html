@@ -7,18 +7,19 @@
     <link rel="shortcut icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
     <title>Agora Chat - Login</title>
     <link rel="stylesheet" href="./style/login.css">
-    <script src="./js/login.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="./js/login.js" defer></script>
 </head>
 <body>
     <div class="container">
         <div class="loginForm">
             <h1 id="title">Login in Agora Chat</h1>
-            <form method="post" action="/login" id="loginForm">
-                <label for="login__userOrEmail">User or Email Address</label>
-                <input type="text" name="userOrEmail" id="login__userOrEmail">
+            <form action="/login" method="POST" id="loginForm">
+                <label for="login__userOrEmail">Email Address</label>
+                <input type="text" name="email" id="login__userOrEmail">
                 <p class="error">Enter your email or user</p>
                 <label for="login__pass">Password</label>
-                <input type="password" name="pass" id="login__pass">
+                <input type="password" name="password" id="login__pass">
                 <p class="error">Enter your password</p>
                 <p class="passTooShort">Password too short (min. 8 char.)</p>
                 <button type="submit">Login</button>

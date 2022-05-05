@@ -1,5 +1,5 @@
 //Create contacts elements
-const createContactEl = (data) => {
+const createContactEl = (data, url) => {
     let { name, id } = data;
 
     const li = document.createElement('li');

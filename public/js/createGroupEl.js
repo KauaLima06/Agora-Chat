@@ -1,5 +1,5 @@
 // Create groups element
-const createGroupEl = (data) => {
+const createGroupEl = (data, url) => {
     let { name, id } = data;
 
     const li = document.createElement('li');

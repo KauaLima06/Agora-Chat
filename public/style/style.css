@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+}
+:root {
+    --purple: #5d17eb;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: var(--purple); */
+}
+.container img#img {
+    width: 35%;
+    max-width: 650px;
+    max-height: 550px;
+}
+.container h2 {
+    text-align: center;
+    font: normal bold 2em 'Poppins';
+    color: var(--purple);
+}
+.container .loginBttn , .container .signupBttn{
+    margin: 10px;
+    width: 150px;
+    height: 40px;
+    background-color: var(--purple);
+    border: none;
+    border-radius: 5px;
+}
+.container .loginBttn a, .container .signupBttn a {
+    font: normal bold 1.5em 'Poppins';
+    text-decoration: none;
+    color: #fff;
+}
