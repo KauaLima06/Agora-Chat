@@ -10,6 +10,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportConfig = require('../config/localStrategy')(passport);
 const methodOverride = require('method-override');
+require('dotenv').config();
 
 //Routers
 const chatRouters = require('../routers/chatRouters.js');
@@ -24,7 +25,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }))
 app.use(flash());
 app.use(session({
-    secret: 'd505467d21a3be3603733564e7c1398a7759f847053a8bad15f49e27385a95eff9d43432f34664b0d80921ebeba00d252ba5a816fb39dba210d0eeb3a0db4007',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {

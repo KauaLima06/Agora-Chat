@@ -1,6 +1,7 @@
 const { serverHttp , app } = require('./src/http');
 require('./src/websocket');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const db_user = process.env.DB_USER;
 const db_pass = process.env.DB_PASS;
