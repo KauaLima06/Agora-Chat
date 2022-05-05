@@ -6,12 +6,11 @@ const urlBase = 'https://agora-api-rest.herokuapp.com';
 const passaportLocalStrategy = (passport) => {
 
     const authenticateUser = async(email, password, done) => {
-
-        const { data: user } = await axios.get(`${urlBase}/user/findByEmail/${email}`);
-        
-        if(!user || user === undefined || user === null) return done(null, false);
-
+    
         try {
+            const { data: user } = await axios.get(`${urlBase}/user/findByEmail/${email}`);
+            
+            if(!user || user == undefined || user == null) return done(null, false);
             
             const { password: userPass } = user;
 
@@ -24,8 +23,8 @@ const passaportLocalStrategy = (passport) => {
             }
 
         } catch (error) {
-            console.log(error);
-            return done(error)
+            console.log(error)
+            return done(null, false)
         }        
     }
     

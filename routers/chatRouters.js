@@ -87,7 +87,10 @@ router.post('/signup', async(req, res) => {
             res.redirect('/500');
         }
     })
-    .catch(error => res.send(error))
+    .catch(error => {
+        console.log(error);
+        return res.redirect('/500');
+    })
 
 });
 
