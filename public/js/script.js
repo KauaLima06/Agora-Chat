@@ -11,7 +11,18 @@ menuIcon.addEventListener('click', () =>{
         menuSideBar.classList.add('menuSideBarClose');
         menuIcon.name = 'menu';   
     }else{
-        return
+        return;
     }
 });
 //Open and Close Menu Side Bar
+
+menuSideBar.addEventListener('click', e => {
+
+    console.log(e.target)
+    if(e.target.classList == 'sideBarLink'){
+        menuSideBar.classList.remove('menuSideBarOpen');
+        menuSideBar.classList.add('menuSideBarClose');
+        menuIcon.name = 'menu';  
+    }
+    
+});
