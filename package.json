@@ -20,13 +20,13 @@
   },
   "homepage": "https://github.com/KauaLima06/Agors-Chat#readme",
   "devDependencies": {
-    "dotenv": "^16.0.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
+    "dotenv": "^16.0.0",
     "ejs": "^3.0.2",
     "express": "^4.17.3",
     "express-flash": "^0.0.2",
