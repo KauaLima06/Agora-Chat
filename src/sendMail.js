@@ -1,7 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
 const nodeMailer = require('nodemailer');
-const urlBase = 'https://agora-api-rest.herokuapp.com';
+const urlBase = 'https://agora-webchat.herokuapp.com';
 // const urlBase = 'http://localhost:8080';
 
 const sendEmail = async(userData) => {
