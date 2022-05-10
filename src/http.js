@@ -22,7 +22,7 @@ const res = require('express/lib/response');
 const app = express();
 
 //App configs
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -53,4 +53,4 @@ const io = new Server(serverHttp);
 //Server
 
 //Export
-module.exports = { serverHttp , io , app};
+module.exports = { serverHttp , io , app };

@@ -11,7 +11,7 @@ mongoose.connect(`mongodb+srv://${db_user}:${db_pass}
 @api-db.0xuhv.mongodb.net/agora-api?retryWrites=true&w=majority`)
     .then(() => {
         console.log('Mongo was connected');
-        app.listen(port, () => {
+        serverHttp.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         })
     })
