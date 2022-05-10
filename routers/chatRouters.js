@@ -8,8 +8,8 @@ require('body-parser');
 const passport = require('passport');
 const passaportConfig = require('../config/localStrategy')(passport);
 const sendEmail = require('../src/sendMail.js');
-// const urlBase = 'https://agora-api-rest.herokuapp.com';
-const urlBase = 'http://localhost:2929';
+const urlBase = 'https://agora-api-rest.herokuapp.com';
+// const urlBase = 'http://localhost:2929';
 
 //MongoDB
 const mongoose = require('mongoose');
