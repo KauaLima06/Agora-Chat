@@ -13,11 +13,8 @@ const sendEmail = async(userData) => {
         port: 465,
         secure: true,
         auth: {
-            // user: process.env.EMAIL,
-            // pass: process.env.EMAIL_PASS,
-
-            user: 'webchat.agora@gmail.com',
-            pass: 'Km290205#'
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASS,
         }
     });
     
