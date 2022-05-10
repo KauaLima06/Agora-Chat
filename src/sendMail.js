@@ -68,7 +68,7 @@ const generateEmailBody = (userName, userId, email) => {
                     a {
                         text-decoration: none;
                         font-size: 1.2em;
-                        color: #fff;
+                        color: #5d17eb;
                         font-family: 'Poppins', sans-serif;
                     }
                     a:hover {
