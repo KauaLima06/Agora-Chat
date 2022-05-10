@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,100;1,300&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+}
+:root {
+    --purple: #5d17eb;
+	--pink: #cb6be6;
+	--orange: #ff5756;
+	--white: #F4F2FD;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-width: 100%;
+    font-family: 'Poppins', 'Roboto', sans-serif;
+}
+h1 {
+    color: var(--purple);
+    text-align: center;
+    letter-spacing: 00.0005em;
+    font-size: 2.5em;
+}
+p {
+    text-align: justify;
+    font-size: 0.9em;
+    margin: 30px 0;
+}
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: var(--purple);
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Poppins', 'Roboto', sans-serif;
+}
+button:hover{
+    background-color: #3b0f94;
+}

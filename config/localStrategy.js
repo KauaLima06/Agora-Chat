@@ -30,12 +30,25 @@ const passaportLocalStrategy = (passport) => {
     
     passport.use(new localStrategy({ usernameField: 'email' }, authenticateUser));
 
-    passport.serializeUser((user, done) => done(null, user.userId));
-    passport.deserializeUser((userId, done) => 
+    passport.serializeUser((user, done) => {
+        const { _id, userName, userId, email, contactList, chats, isConfirmed } = user;
+        const userToSession = {
+            _id, 
+            userName, 
+            userId, 
+            email, 
+            contactList, 
+            chats, 
+            isConfirmed,
+        };
+        done(null, userToSession)
+    });
+    passport.deserializeUser((userObj, done) => {
+        const userId = userObj.userId;
         done(
         null, 
         axios.get(`${urlBase}/user/findById/${userId}`)
-    ));
+    )});
 
 };
 

@@ -3,12 +3,13 @@ const router = express.Router();
 const path = require('path');
 const bcrypt = require('bcrypt');
 const axios = require('axios');
-const urlBase = 'https://agora-api-rest.herokuapp.com';
 require('dotenv').config();
 require('body-parser');
 const passport = require('passport');
 const passaportConfig = require('../config/localStrategy')(passport);
-
+const sendEmail = require('../src/sendMail.js');
+// const urlBase = 'https://agora-api-rest.herokuapp.com';
+const urlBase = 'http://localhost:2929';
 
 //MongoDB
 const mongoose = require('mongoose');
@@ -18,8 +19,8 @@ const mongoose = require('mongoose');
 router.get('/', (req, res) => {
     res.render('index.html');
 });
-router.get('/chat', checkIsAuthenticate, (req, res) => {
-    console.log(req.session)
+router.get('/chat', checkIsAuthenticate, checkIsConfirmed, (req, res) => {
+    console.log(req.session.passport.user)
     res.render('chat.html');
 });
 router.get('/login', (req, res) => {
@@ -28,8 +29,49 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
     res.render('sign-up.html');
 });
-router.get('/profile', checkIsAuthenticate, (req, res) => {
+router.get('/profile', checkIsAuthenticate, checkIsConfirmed, (req, res) => {
     res.render('profile.html');
+});
+router.get('/sendemail', checkIsAuthenticate, (req, res) => {
+    res.render('sendEmailToConfirm.html');
+});
+router.get('/emailConfirmed', (req, res) => {
+    res.render('emailConfirmed.html');
+});
+
+//confirm email
+router.get('/confirmEmail/:userId', async(req, res) => {
+
+    const id = req.params.userId;
+    const findUser = axios.get(`${urlBase}/user/findById/${id}`)
+    .then(async response => {
+        const user = response.data;
+        if(!user || user == null || user == undefined) return res.redirect('/404');
+
+        const { isConfirmed } = user;
+        if(isConfirmed) return res.redirect('/login');
+
+        const userUpdate = await axios.patch(`${urlBase}/user/confirmEmail/${id}`, 
+        {isConfirmed: true})
+        .then(response => {
+            const { error } = response;
+            if(error){
+                if(response.status == 404) return res.redirect('/404');
+                if(response.status == 500) return res.redirect('/500');
+            } 
+
+            return res.redirect('/emailConfirmed');
+        })
+        .catch(err => {
+            console.log(err);
+            return res.redirect('/500');
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        return res.redirect('/500');
+    })
+
 });
 
 //Message routers
@@ -65,6 +107,15 @@ function checkIsNoAuthenticate(req, res, next){
     next();
 
 };
+
+async function checkIsConfirmed(req, res, next){
+
+    const { isConfirmed, userId } = req.session.passport.user;
+    if(isConfirmed) return next();
+
+    return res.redirect(`/sendemail`);
+
+}
 //Middlewares
 
 //Post Routers
@@ -82,7 +133,10 @@ router.post('/signup', async(req, res) => {
     .then(response => {
         // res.send(response.data)
         if(response.status == 201){
+
+            sendEmail(response.data);
             res.redirect('/201');
+
         }else{
             res.redirect('/500');
         }
@@ -95,11 +149,29 @@ router.post('/signup', async(req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/Chat',
+    successRedirect: '/chat',
     failureRedirect: '/500',
-    failureFlash: true
+    failureFlash: true,
 }));
 
+router.post('/sendemail', async(req, res) => {
+    if(req.session.passport.user){
+        const { userId } = req.session.passport.user;
+        const findUser = await axios.get(`${urlBase}/user/findById/${userId}`)
+        .then(response => {
+            const user = response.data;
+            if(!user || user == null || user == undefined) return res.redirect('404');
+    
+            sendEmail(user);
+        })
+        .catch(err => {
+            console.log(err);
+            return res.redirect('/500');
+        })
+    }
+
+    return res.redirect('/login');
+});
 //Post Routers
 
 //Routers
