@@ -1,8 +1,8 @@
 //Conect client in websocket
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
-console.log(io)
 const socket = io();
-socket.emit('teste', 'ola')
+
+console.log(window.sessionStorage)
 
 import { createContactEl } from "./createContactEl.js";
 import { createGroupEl } from "./createGroupEl.js";

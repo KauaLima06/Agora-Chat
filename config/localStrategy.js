@@ -33,12 +33,8 @@ const passaportLocalStrategy = (passport) => {
     passport.serializeUser((user, done) => {
         const { _id, userName, userId, email, contactList, chats, isConfirmed } = user;
         const userToSession = {
-            _id, 
-            userName, 
-            userId, 
-            email, 
-            contactList, 
-            chats, 
+            _id,
+            userId,
             isConfirmed,
         };
         done(null, userToSession)

@@ -19,8 +19,8 @@ const mongoose = require('mongoose');
 router.get('/', (req, res) => {
     res.render('index.html');
 });
-router.get('/chat', checkIsAuthenticate, checkIsConfirmed, (req, res) => {
-    console.log(req.session.passport.user)
+router.get('/chat', checkIsAuthenticate, checkIsConfirmed, async(req, res) => {
+    const { userId } = req.session.passport.user;
     res.render('chat.html');
 });
 router.get('/login', (req, res) => {
@@ -102,7 +102,11 @@ function checkIsAuthenticate(req, res, next){
 
 function checkIsNoAuthenticate(req, res, next){
 
-    if(req.isAuthenticated()) return res.redirect('/chat');
+    const userId = req.session.passport.user;
+    if(req.isAuthenticated()){
+        console.log(userId)
+        return res.redirect(`/chat?user=${userId}`);
+    }
 
     next();
 
