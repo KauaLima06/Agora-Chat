@@ -1,11 +1,10 @@
 //Conect client in websocket
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const socket = io();
+// const urlApi = 'https://agora-api-rest.herokuapp.com';
+const urlApi = 'http://localhost:2929';
+const userId = document.querySelector('#profile').value;
 
-console.log(window.sessionStorage)
-
-import { createContactEl } from "./createContactEl.js";
-import { createGroupEl } from "./createGroupEl.js";
 //Get url data
 let url = new URLSearchParams(window.location.search);
 let room = url.get('to');
@@ -28,8 +27,84 @@ if(room === null){
     document.querySelector('.message__buttons').style.display = 'flex';
     document.querySelector('.chat').style.display = 'flex';
     document.querySelector('.chat__sendMessage').style.display = 'flex';
+    const messages = await getChatMessages(room);
+    if(messages != null){
+        console.log(messages)
+        for(let pos in messages){
+            renderMessage(messages[pos]);
+        }
+    }
 }
 //Get url data
+const getUserData = async() => {
+    let user;
+    const request = await axios.get(`${urlApi}/user/findById/${userId}`)
+    .then(res => {
+        const data = res.data;
+        user = data;
+    })
+    .catch(err => {
+        //disparar um aviso para o usuário recarregar a pagina
+        console.log(err);
+    })
+
+    return user;
+}
+
+const userData = await getUserData();
+const { chats: userChats, contactList: userContacts } = userData;
+
+if(userContacts){
+    for(let pos in userContacts){
+        renderUserList(userContacts[pos])
+    }
+}
+
+async function renderUserList(userToRender){ 
+    const { name, conversationId, userId } = userToRender;
+    await axios.get(`${urlApi}/conversation/find/${conversationId}`)
+    .then(res => {
+        const { messages } = res.data;
+
+        const lastMessage = messages.length ? messages[messages.length -1] : null;
+
+        const data = {
+            name,
+            userId,
+            lastMessage,
+            conversationId
+        }
+
+        let elm = createContactEl(data);
+        contactsList.append(elm);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+async function getLastMessage(id){
+    const { contactList } = await getUserData();
+    const findUserInList = contactList.find(user => user.userId == id);
+    let { messages } = findUserInList;
+    message.push('ola')
+    if(!message || !message.length || message == undefined || message == null) return null
+    return message[message.length -1 ];
+
+    /*
+    messages = [
+        {
+            sendBy: 'Who send',
+            hour: 'Hour that was send',
+            text: 'message',
+        }
+    ]
+     */
+}
+
+import { createContactEl } from "./createContactEl.js";
+import { createGroupEl } from "./createGroupEl.js";
+
 // Open and Close form
 const addContactForm = document.querySelector('.addContactForm');
 const addContactsBttn = document.querySelector('.addContacts__button');
@@ -75,20 +150,36 @@ addContactsBttn.addEventListener('click', (e)=>{
 //Send forms 
 const contactForm = document.querySelector('#addContactForm');
 let elem = null;
-contactForm.addEventListener('submit', e => {
+contactForm.addEventListener('submit', async e => {
+    e.preventDefault()
     let name = document.querySelector(`#nameContact`);
     let id = document.querySelector(`#idContact`);
     
     if(name.value != '' && id.value != ''){
+        const userName = name.value;
+        const userId = id.value;
+
         name.value = '';
         id.value = '';
         addContactForm.style.display = 'none';
         document.getElementById('contactDiv').style.display = 'none';
         document.getElementById('groupDiv').style.display = 'none';
-    
-        elem = createContactEl({name, id});
-    
-        contactsList.append(elem);
+
+
+        const user = await axios.get(`${urlApi}/user/getUser/${userId}`)
+        .then(res => {
+            if(res.status == 404) return console.log('User not found');
+            const user = {
+                userName: userName,
+                userId: userId,
+            }
+
+            createConversation(user);
+            // saveInContactList(user);
+        })
+        .catch(err => {
+            console.log(err.response.data)
+        })
     }else{
         e.preventDefault();
         
@@ -103,7 +194,7 @@ contactForm.addEventListener('submit', e => {
 });
 
 const groupForm = document.querySelector('#addGroupForm');
-groupForm.addEventListener('submit', e => {
+groupForm.addEventListener('submit', async e => {
     let name = document.querySelector('#nameGroup');
     let id = document.querySelector('#idGroup');
     
@@ -138,13 +229,21 @@ sendMessageForm.addEventListener('submit', e => {
     e.preventDefault();
 
     let message = document.querySelector('.sendMessage__input').value;
-    const data = {
-        message: message,
-        hour: getHour(),
-        room,
-    };
-    socket.emit('sendMessage', data);
-    document.querySelector('.sendMessage__input').value = '';
+    if(message != ''){
+        const data = {
+            sendBy: userId,
+            hour: getHour(),
+            text: message,
+            room,
+        };
+        socket.emit('sendMessage', data);
+        document.querySelector('.sendMessage__input').value = '';
+    }else {
+        document.querySelector('.sendMessage__input').placeholder = 'Type something to send';
+        setTimeout(() => {
+            document.querySelector('.sendMessage__input').placeholder = '';
+        }, 4000);
+    }
 });
 
 //get hour
@@ -163,7 +262,7 @@ function getHour(){
 
 function renderMessage(data){
 
-    let { message: txt , hour } = data;
+    const { text: txt , hour } = data;
     let messageEl = document.createElement('div');
     messageEl.classList.add('chat__message');
     let messageText = document.createElement('div');
@@ -187,6 +286,8 @@ function renderMessage(data){
 //Socket events
 socket.on('recivedMessage', data => {
     renderMessage(data);
+    saveMessagesInDb(data);
+
     let messagesEl = document.querySelectorAll('.chat__message');
     let lastElTop = messagesEl[messagesEl.length - 1].offsetTop;
     if(lastElTop >= 435){
@@ -199,3 +300,91 @@ function chatScrollDown(){
     document.querySelector('.chat').scrollTop += 65;
 };
 //automatic scroll
+//Save new contacts in db
+
+async function createConversation(user){
+    const { userId: id } = user;
+    const members = [userId, id];
+    const creator = userId;
+
+    await axios.post(`${urlApi}/conversation/create`, { members, creator })
+    .then(res => {
+        console.log(res.data)
+        saveInContactList(res.data, user);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+async function saveInContactList(conversation ,user){
+
+    const { userName, userId: id } = user;
+    const { conversationId, messages } = conversation;
+    console.log(conversation)
+    const contactToSave = {
+        name: userName,
+        userId: id,
+        conversationId: conversationId,
+    }
+
+    await axios.patch(`${urlApi}/user/update/${userId}`, { newContact: contactToSave })
+    .then(res => {
+        if(res.status != 200) return console.log(res.data.message);
+
+        const lastMessage = messages.length ? messages[messages.length -1] : null;
+        const { userName, userId } = user;
+        const data = {
+            name: userName,
+            userId,
+            lastMessage,
+            conversationId
+        }
+console.log(messages)
+console.log(lastMessage)
+console.log(data)
+        let elem = createContactEl(data);
+        contactsList.append(elem);
+    })
+    .catch(err => {
+        console.error(err);
+    })
+
+}
+
+async function saveMessagesInDb(data){
+    const { sendBy, hour, text, room } = data;
+    const messageToSave = {
+        sendBy,
+        hour,
+        text
+    };
+    await axios.patch(`${urlApi}/conversation/update/${room}`, { newMessage: messageToSave })
+    .then(res => {
+        console.log(res.data);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+async function getChatMessages(id){
+    let messagesArray;
+    await axios.get(`${urlApi}/conversation/find/${id}`)
+    .then(res => {
+        if(res.status != 200) return console.log(res.data.message);
+
+        console.log(res.data)
+        const { messages } = res.data;
+        if(messages.length){
+            messagesArray = messages;
+        }else {
+            messagesArray = null;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+    return messagesArray;
+}

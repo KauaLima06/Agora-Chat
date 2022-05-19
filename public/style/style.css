@@ -20,8 +20,8 @@
 }
 .container img#img {
     width: 50%;
-    max-width: 650px;
-    max-height: 550px;
+    max-width: 600px;
+    max-height: 500px;
 }
 .container h2 {
     text-align: center;
@@ -36,7 +36,7 @@
     border: none;
     border-radius: 5px;
 }
-.container .loginBttn a, .container .signupBttn a {
+.container a .loginBttn, .container a .signupBttn {
     font: normal bold 1.5em 'Poppins';
     text-decoration: none;
     color: #fff;

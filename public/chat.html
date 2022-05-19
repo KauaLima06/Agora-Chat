@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <link rel="stylesheet" href="../style/chat.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="../js/chat.js" defer></script>
 </head>
 <body>
@@ -18,8 +19,9 @@
             <div id="menu__div">
                 <nav class="menu__nav">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="/profile"><button>Profile</button></a></li>
+                        <li class="nav__item"><a href="/profile"><button id="profile" value="<%= userId %>">Profile</button></a></li>
                         <li class="nav__item"><a href="/settings"><button>Settings</button></a></li>
+                        <!-- <li class="nav__item"><a href="/settings"><button><%= userId %></button></a></li> -->
                         <li class="nav__item"><a href="/faq"><button>FAQ</button></a></li>
                         <li class="nav__item"><a href="/terms-of-use"><button>Terms of Use</button></a></li>
                     </ul>
@@ -32,7 +34,7 @@
         <div class="addContactForm">
             <div id="contactDiv">
                 <h2>Add Contact</h2>
-                <form id="addContactForm" action="/chat" method="get">
+                <form id="addContactForm">
                     <input type="text" name="nameCont" id="nameContact" placeholder="Insert Contact Name">
                     <input type="text" name="idCont" id="idContact" placeholder="Insert Contact Id">
                     <button type="submit" class="sendForm">Add</button>

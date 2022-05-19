@@ -239,6 +239,7 @@ div#notifications__div{
 .contacts__list li div div .contact__name, .contacts__list li div div .group__name {
   font: normal bold 0.85em 'Poppins';
   letter-spacing: 0.005em;
+  /* color: var(--purple); */
 }
 .contacts__list li div div .contact__lastMessage, .contacts__list li div div .group__lastMessage {
   font: normal normal 0.6em 'Poppins';

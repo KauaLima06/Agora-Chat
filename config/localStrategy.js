@@ -18,7 +18,6 @@ const passaportLocalStrategy = (passport) => {
             if(comparePass){
                 return done(null, user);
             }else {
-                console.log(user)
                 return done(null, false);
             }
 

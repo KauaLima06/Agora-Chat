@@ -82,7 +82,7 @@ const generateEmailBody = (userName, userId, email) => {
                     <p>Hello ${userName} (user id: ${userId}), welcome to Agora Web Chat, a realtime chat built in node, js , html and css. Thank you for your registration, before using our chat you need to confirm your email by clicking on the link below.</p>
                     <a href="${urlBase}/confirmEmail/${userId}" target="_blank" id="linkBttn"><button>Confirm your email</button></a>
                     <p>If you are unable to access the click or copy click by Bhutan and paste the link below into your browser. </p>
-                    <a href="${urlBase}/confirmEmail/${userId}" id="link" target="_blank">${urlBase}/confirmEmail/${userId}</a>
+                    <a href="${urlBase}/confirmEmail/${userId}" id="link" target="_blank">Confirm your email</a>
                 </div>
             </body>
         </html>
