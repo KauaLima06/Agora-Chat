@@ -262,7 +262,8 @@ function getHour(){
 
 function renderMessage(data){
 
-    const { text: txt , hour } = data;
+    const { sendBy, text: txt , hour } = data;
+    
     let messageEl = document.createElement('div');
     messageEl.classList.add('chat__message');
     let messageText = document.createElement('div');
@@ -277,6 +278,14 @@ function renderMessage(data){
     messageText.append(text);
     messageEl.append(messageHour);
     messageEl.append(messageText);
+    if(sendBy == userId){
+        messageText.style.justifyContent = 'flex-end';
+        messageText.style.backgroundColor = '#5d17eb';
+        text.style.color = '#fff';
+        text.style.backgroundColor = '#5d17eb';
+    }else {
+        messageEl.style.justifyContent = 'flex-start';
+    }
 
     let chat = document.querySelector('.chat');
     chat.append(messageEl);
@@ -340,9 +349,6 @@ async function saveInContactList(conversation ,user){
             lastMessage,
             conversationId
         }
-console.log(messages)
-console.log(lastMessage)
-console.log(data)
         let elem = createContactEl(data);
         contactsList.append(elem);
     })
