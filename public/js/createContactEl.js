@@ -14,7 +14,7 @@ const createContactEl = (data) => {
 
     const li = document.createElement('li');
     const contacLink = document.createElement('a');
-    contacLink.href = `/chat?to=${conversationId}&name=${userName}`;
+    contacLink.href = `/chat?to=${conversationId}&name=${userName}&type=contact`;
     
     const contact = document.createElement('div');
     contact.classList.add('contact');

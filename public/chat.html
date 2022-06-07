@@ -21,7 +21,6 @@
                     <ul class="nav__list">
                         <li class="nav__item"><a href="/profile"><button id="profile" value="<%= userId %>">Profile</button></a></li>
                         <li class="nav__item"><a href="/settings"><button>Settings</button></a></li>
-                        <!-- <li class="nav__item"><a href="/settings"><button><%= userId %></button></a></li> -->
                         <li class="nav__item"><a href="/faq"><button>FAQ</button></a></li>
                         <li class="nav__item"><a href="/terms-of-use"><button>Terms of Use</button></a></li>
                     </ul>
@@ -44,10 +43,19 @@
                 <h2>Add Group</h2>
                 <form id="addGroupForm" action="/" method="post">
                     <input type="text" name="nameGroup" id="nameGroup" placeholder="Insert Group Name">
-                    <input type="text" name="idGroup" id="idGroup" placeholder="Insert Group Id">
+                    <div>
+                        <p>Members</p>
+                        <button type="button" id="addMembersBttn"><ion-icon name="add"></ion-icon></button>
+                    </div>
                     <button type="submit" class="sendForm">Add</button>
                 </form>
             </div>
+        </div>
+        <div class="membersToAddInChat">
+            <ul id="membersToAddList">
+                
+            </ul>
+            <button id="membersInChatBttn">Ok</button>
         </div>
         <main class="container__main">
             <div class="contacts">
@@ -58,7 +66,7 @@
                 <div class="addContacts">
                     <div class="selectToAdd">
                         <button id="selectToAdd__contact" value="contact">Contact</button>
-                        <button id="selectToAdd__group" value="group" disabled>Group</button>
+                        <button id="selectToAdd__group" value="group">Group</button>
                     </div>
                     <button class="addContacts__button">
                         <ion-icon name="add" id="openFormIcon"></ion-icon>
@@ -73,7 +81,7 @@
                     <div>
                         <button class="message__clear">Clear Chat</button>
                         <button class="message__more">More</button>
-                        <button class="closeChat"><ion-icon name="close"></ion-icon></button>
+                        <a href="/chat"><button class="closeChat"><ion-icon name="close"></ion-icon></button></a>
                     </div>
                 </div>
                 <div class="chat">

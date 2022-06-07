@@ -1,3 +1,6 @@
+import { createContactEl } from "./createContactEl.js";
+import { createGroupEl } from "./createGroupEl.js";
+import { createCttList } from "./createCttList.js";
 //Conect client in websocket
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const socket = io();
@@ -9,6 +12,7 @@ const userId = document.querySelector('#profile').value;
 let url = new URLSearchParams(window.location.search);
 let room = url.get('to');
 let name = url.get('name');
+const type = url.get('type');
 if(name != null || name != undefined){
     document.querySelector('#nameContactH2').innerText = name;
 }
@@ -27,11 +31,13 @@ if(room === null){
     document.querySelector('.message__buttons').style.display = 'flex';
     document.querySelector('.chat').style.display = 'flex';
     document.querySelector('.chat__sendMessage').style.display = 'flex';
-    const messages = await getChatMessages(room);
-    if(messages != null){
-        console.log(messages)
-        for(let pos in messages){
-            renderMessage(messages[pos]);
+    if(type == 'contact'){
+        const messages = await getChatMessages(room);
+        if(messages != null){
+            console.log(messages)
+            for(let pos in messages){
+                renderMessage(messages[pos]);
+            }
         }
     }
 }
@@ -56,10 +62,9 @@ const { chats: userChats, contactList: userContacts } = userData;
 
 if(userContacts){
     for(let pos in userContacts){
-        renderUserList(userContacts[pos])
+        renderUserList(userContacts[pos]);
     }
 }
-
 async function renderUserList(userToRender){ 
     const { name, conversationId, userId } = userToRender;
     await axios.get(`${urlApi}/conversation/find/${conversationId}`)
@@ -75,7 +80,7 @@ async function renderUserList(userToRender){
             conversationId
         }
 
-        let elm = createContactEl(data);
+        const elm = createContactEl(data);
         contactsList.append(elm);
     })
     .catch(err => {
@@ -83,27 +88,50 @@ async function renderUserList(userToRender){
     })
 }
 
-async function getLastMessage(id){
-    const { contactList } = await getUserData();
-    const findUserInList = contactList.find(user => user.userId == id);
-    let { messages } = findUserInList;
-    message.push('ola')
-    if(!message || !message.length || message == undefined || message == null) return null
-    return message[message.length -1 ];
+if(userChats){
+    console.log(userChats)
+    for(let pos in userChats){
+        renderChatList(userChats[pos]);
+    }
 
     /*
-    messages = [
-        {
-            sendBy: 'Who send',
-            hour: 'Hour that was send',
-            text: 'message',
+        "chats": [
+      "SYCceZn",
+      "lKxrBH1",
+      "YYMBrqA"
+    ],
+    */
+}
+async function renderChatList(chatId){
+    axios.get(`${urlApi}/chat/find/${chatId}`)
+    .then(res => {
+        console.log(res.data)
+        const { name, messages , chatId } = res.data;
+        /*
+        message = {
+            "sendByName": "User name"
+            "sendById": "0CMAa2o",
+            "hour": "16:35",
+            "text": "negão"
         }
-    ]
-     */
+        */
+       let lastMessage;
+       if(messages.length){
+        lastMessage = messages[messages.length - 1];
+       }else {
+           lastMessage = null || undefined;
+       }
+        const data = {
+            name: name,
+            id: chatId,
+            lastMessage
+        }
+        const elm = createGroupEl(data);
+        contactsList.append(elm);
+    })
+    .catch(err => console.log(err))
 }
 
-import { createContactEl } from "./createContactEl.js";
-import { createGroupEl } from "./createGroupEl.js";
 
 // Open and Close form
 const addContactForm = document.querySelector('.addContactForm');
@@ -134,6 +162,7 @@ addContactsBttn.addEventListener('click', (e)=>{
                 document.querySelector('#groupDiv').style.display = 'none';
                 document.querySelector('#contactDiv').style.display = 'none';
                 document.querySelector('.selectToAdd').style.display = 'none';
+                document.querySelector('.membersToAddInChat').classList.remove('Open');
             }
         });
     } else if(nameIcon == 'close') {
@@ -142,6 +171,7 @@ addContactsBttn.addEventListener('click', (e)=>{
         document.querySelector('#contactDiv').style.display = 'none';
         document.querySelector('#groupDiv').style.display = 'none';
         document.querySelector('.selectToAdd').style.display = 'none';
+        document.querySelector('.membersToAddInChat').classList.remove('Open');
     }else {
         return;
     }
@@ -194,31 +224,104 @@ contactForm.addEventListener('submit', async e => {
 });
 
 const groupForm = document.querySelector('#addGroupForm');
+let membersChat = [userId];
 groupForm.addEventListener('submit', async e => {
     let name = document.querySelector('#nameGroup');
-    let id = document.querySelector('#idGroup');
     
-    if(name.value != '' && id.value != ''){
+    if(name.value != ''){
+        e.preventDefault()
         
+        const chat = {
+            name: name.value,
+            members: membersChat,
+            creator: userId,
+            admimList: [userId],
+        };
+
+        axios.post(`${urlApi}/chat/create`, chat)
+        .then(res => {
+            console.log(res.data)
+            const { name, chatId } = res.data;
+            elem = createGroupEl({
+                name: name,
+                id: chatId,
+                lastMessage: null,
+            });
+            console.log(membersChat)
+            contactsList.append(elem);
+        })
+        .catch(err => console.log(err));
+
+        alert(name.value)
+
         document.querySelector(`#nameGroup`).value = '';
-        document.querySelector(`#idGroup`).value = '';
         addContactForm.style.display = 'none';
         document.getElementById('groupDiv').style.display = 'none';
         document.getElementById('contactDiv').style.display = 'none';
-        
-        elem = createGroupEl({name, id});
-        
-        contactsList.append(elem);
     }else{
         e.preventDefault();
 
         document.querySelector(`#nameGroup`).placeholder = 'Name is required';
-        document.querySelector(`#idGroup`).placeholder = 'Id is required';
         
         setTimeout(() => {
             document.querySelector(`#nameGroup`).placeholder = 'Insert group name';
-            document.querySelector(`#idGroup`).placeholder = 'Insert group id';
         }, 3000);
+    }
+});
+const membersListDiv = document.querySelector('.membersToAddInChat');
+const memberList = document.getElementById('membersToAddList');
+const addMembersBttn = document.getElementById('addMembersBttn');
+addMembersBttn.addEventListener('click', async() => {
+    if(membersListDiv.classList[1] != 'Open'){
+        membersListDiv.classList.add('Open');
+        addContactForm.style.display = 'none';
+        console.log(membersChat)
+        const userData = await getUserData();
+        const { contactList } = userData;
+        if(contactList.length){
+            for(let pos in contactList){
+                const memberHtml = createCttList(contactList[pos]);
+                const { li, input } = memberHtml;
+                const findUser = membersChat.find(member => member == input.value);
+                console.log(findUser)
+                if(findUser != undefined) input.checked = true;
+                memberList.append(li);
+                console.log(input.value)
+
+                input.addEventListener('click', () => {
+                    if(input.checked){
+                        console.log('in')
+                        const findUser = membersChat.find(member => member == input.value);
+                        if(findUser == undefined){
+                            console.log(membersChat)
+                            membersChat.push(input.value);
+                            console.log(membersChat)
+                        }else {
+                            return;
+                        }
+                    }else {
+                        console.log('out')
+                        console.log(membersChat)
+                        membersChat = membersChat.filter(member => member != input.value);
+                        console.log(membersChat)
+                    }
+                });
+            }
+        };
+        
+        const memberListBttn = document.getElementById('membersInChatBttn');
+        memberListBttn.addEventListener('click', () => {
+            membersListDiv.classList.remove('Open');
+            addContactForm.style.display = 'flex';
+            if(memberList.childElementCount){
+                while(memberList.childElementCount){
+                    memberList.removeChild(memberList.lastChild);
+                }
+            }
+        });
+    }else {
+        membersListDiv.classList.remove('Open');
+        addContactForm.style.display = 'flex';
     }
 });
 //Send forms 
@@ -394,3 +497,9 @@ async function getChatMessages(id){
 
     return messagesArray;
 }
+
+//create chat
+// const membersToAddInChat = document.querySelectorAll('.select__member');
+// membersToAddInChat.addEventListener('input', e => {
+//     console.log(e.target.value)
+// });

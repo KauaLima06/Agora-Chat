@@ -257,7 +257,8 @@ div#notifications__div{
   width: 100%;
   justify-content: flex-end;
   position: absolute;
-  bottom: 10px;
+  bottom: 3%;
+  right: 3%;
   padding: 0 5px;
 }
 .contacts .addContacts .selectToAdd {
@@ -343,7 +344,7 @@ div#notifications__div{
   font: normal normal 1em 'Poppins';
   letter-spacing: 00.0005em;
 }
-.addContactForm div form button{
+.addContactForm div form .sendForm{
   height: 40px;
   width: 95%;
   background-color: var(--purple);
@@ -353,11 +354,34 @@ div#notifications__div{
   border-radius: 7px;
   margin: 0 5px;
 }
+.addContactForm div form div {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  font: normal bold 1em 'Poppins';
+  color: var(--purple);
+}
+.addContactForm div form div button{
+  width: 15%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--purple);
+}
 #contactDiv{
   display: none;
 }
 #groupDiv{
-  display: none;
+  display: flex;
 }
 .main__message .message__buttons {
   display: none;
@@ -509,4 +533,63 @@ div#notifications__div{
   100% {
     transform: translateY(1px);
   }
+}
+.membersToAddInChat{
+  display: none;
+}
+.membersToAddInChat.Open {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  max-width: 300px;
+  height: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 10px 10px 40px 10px;
+  border-radius: 5px;
+  background-color: var(--purple);
+}
+.membersToAddInChat.Open button{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  width: calc(100% - 10px);
+  height: 30px;
+  background-color: #e5e5e5;
+  font: normal bold 1.2em 'Poppins';
+  color: var(--purple);
+  border: none;
+  border-radius: 3px;
+}
+.membersToAddInChat.Open ul {
+  overflow-y: scroll;
+}
+.membersToAddInChat.Open ul li {
+  list-style: none;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #e5e5e5;
+  margin: 5px 0;
+}
+.membersToAddInChat.Open ul li div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.membersToAddInChat.Open ul li div p{
+  font: normal bold 1em 'Poppins';
+  letter-spacing: 00.0005em;
+  color: var(--purple);
+}
+.membersToAddInChat.Open ul li div input {
+  width: 15px;
+  height: 15px;
 }
