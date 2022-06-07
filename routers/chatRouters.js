@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
     res.redirect('/chat?user=teste')
     // res.render('index.html');
 });
-router.get('/chat', checkIsAuthenticate, checkIsConfirmed, async(req, res) => {
+router.get('/chat',  checkIsConfirmed, async(req, res) => {
     const user = req.session.passport.user;
     const { userId } = user;
     res.render('chat.html', { userId });
