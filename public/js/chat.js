@@ -4,8 +4,8 @@ import { createCttList } from "./createCttList.js";
 //Conect client in websocket
 import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 const socket = io();
-// const urlApi = 'https://agora-api-rest.herokuapp.com';
-const urlApi = 'http://localhost:2929';
+const urlApi = 'https://agora-api-rest.herokuapp.com';
+// const urlApi = 'http://localhost:2929';
 const userId = document.querySelector('#profile').value;
 
 //Get url data
